@@ -1,62 +1,110 @@
-import React from "react";
-import Sidebar from "../Components/Sidebar";
-import AddModal from "../Components/AddModal";
-import EditModal from "../Components/EditModal";
-import Topbar from "../Components/Topbar";
-import Footer from "../Components/Footer";
+import React, { useContext, useEffect, useState } from "react";
+import AddModal from "../Components/Faculty/AddModal";
+import EditModal from "../Components/Faculty/EditModal";
 import PageTopTitle from "../Components/PageTopTitle";
-import SearchModal from "../Components/SearchModal";
+import SearchModal from "../Components/Faculty/SearchModal";
+import { FacultyContext } from "../context/FacultyContext";
+import { IFacultyData } from "../Interface/Interface";
+import Layouts from "../Layout/Layouts";
 
 function Faculty() {
+  const { faculty, filteredFaculty, handleDeleteFaculty, handleFilterFaculty, handleResetFaculty } =
+    useContext(FacultyContext);
+
+  const [facultiesToMap, setFacultiesToMap] = useState(faculty);
+
+  const deleteFaculty = (facultyObj: IFacultyData) => {
+    handleDeleteFaculty(facultyObj);
+  };
+
+  const editFacultyBtn = (facultyObj: IFacultyData) => {
+    handleFilterFaculty(facultyObj);
+  };
+
+  useEffect(() => {
+    filteredFaculty
+      ? setFacultiesToMap(filteredFaculty)
+      : setFacultiesToMap(faculty);
+  }, [faculty, filteredFaculty]);
+
   return (
-    <div id="page-top">
-      {/* Page Wrapper */}
-      <div id="wrapper">
-        <Sidebar />
-        <div id="content-wrapper" className="d-flex flex-column">
+    <Layouts>
+      {
+        <>
           <AddModal />
           <EditModal />
           <SearchModal />
-          <div id="content">
-            <Topbar />
-            {/* <!-- Begin Page Content --> */}
-            <div className="container-fluid">
-              <PageTopTitle />
+          <PageTopTitle pageName={"Faculties"} />
 
-              {/* //TODO TABLE SECTION */}
-              {/* //? TABLE SECTION */}
-              <div className="container-fluid" id="container-table-wrap">
-                <table className="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th scope="col">S/N</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">UniqueId</th>
-                      <th scope="col">Code</th>
-                      <th scope="col">Status</th>
-                      <th scope="col">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody id="table-body">
-                    {/* 
-                        -------------------------------------------------\
-                        All faculties will be loaded here dynamically        >
-                        -------------------------------------------------/
-                    */}
-                  </tbody>
-                </table>
-              </div>
-
-              {/* //? TABLE SECTION */}
-              {/* //TODO TABLE SECTION */}
-            
-            </div>
-            {/* <!-- End Page Content --> */}
-            <Footer />
+          {/* //TODO TABLE SECTION */}
+          {/* //? TABLE SECTION */}
+          <div className="container-fluid" id="container-table-wrap">
+            <button
+              id="reset-btn"
+              className="btn btn-m btn-success mb-5 shadow-sm"
+              onClick={() => handleResetFaculty()}
+            >
+              Reset
+            </button>
+            <table className="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">S/N</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">UniqueId</th>
+                  <th scope="col">Code</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="table-body">
+                {facultiesToMap &&
+                  facultiesToMap.map((faculty: IFacultyData, index: number) => {
+                    return (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{faculty.Name}</td>
+                        <td>{faculty.UniqueId}</td>
+                        <td>{faculty.Code}</td>
+                        <td>
+                          {faculty.Status ? (
+                            <div className="text-success">Active</div>
+                          ) : (
+                            <div className="text-danger">Inactive</div>
+                          )}
+                        </td>
+                        <td>
+                          <button
+                            data-toggle="modal"
+                            data-target="#editModal"
+                            className="btn btn-primary"
+                            onClick={() => {
+                              editFacultyBtn(faculty);
+                            }}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            className="btn btn-danger"
+                            onClick={() => {
+                              deleteFaculty(faculty);
+                            }}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
           </div>
-        </div>
-      </div>
-    </div>
+
+          {/* //? TABLE SECTION */}
+          {/* //TODO TABLE SECTION */}
+        </>
+      }
+    </Layouts>
   );
 }
 

@@ -1,11 +1,15 @@
 import React from "react";
 
-const PageTopTitle = () => {
+type Props = {
+  pageName:string;
+}
+
+const PageTopTitle = ({pageName}:Props) => {
 
   return (
     <div>
       <div className="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 className="h3 mb-0 text-gray-800">Faculties</h1>
+        <h1 className="h3 mb-0 text-gray-800">{pageName}</h1>
         <div>
           <button
             data-toggle="modal"

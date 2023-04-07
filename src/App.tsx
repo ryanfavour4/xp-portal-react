@@ -7,53 +7,6 @@ import "./App.css";
 import { FacultyContext } from "./context/FacultyContext";
 
 function App() {
-  // const books = useContext(BookContext);
-
-  const {
-    faculty,
-    filteredFaculty,
-    handleAddFaculty,
-    handleDeleteFaculty,
-    handleResetFaculty,
-    handleFilterFaculty,
-    handleFilterFacultyName,
-  } = useContext(FacultyContext);
-
-  const addFaculty = () => {
-    handleAddFaculty({
-      id: faculty.length + 1,
-      Name: "Lama Sail University",
-      UniueId: "664-018",
-      Code: "1478-320",
-      Status: true,
-    });
-    console.log(faculty);
-    console.log(filteredFaculty);
-  };
-
-  const deleteFaculty = () => {
-    handleDeleteFaculty({
-      id: faculty.length,
-      Name: "Lama Sail University",
-      UniueId: "664-018",
-      Code: "1478-320",
-      Status: true,
-    });
-    console.log(faculty);
-    console.log(filteredFaculty);
-  };
-
-  const resetFaculty = () => {
-    handleResetFaculty();
-    console.log(faculty);
-    console.log(filteredFaculty);
-  };
-
-  const filterFacultyName = () => {
-    handleFilterFacultyName("University");
-    // console.log(faculty);
-    console.log(filteredFaculty);
-  };
 
   return (
     <BrowserRouter>

@@ -1,14 +1,33 @@
-import React from "react";
+import React, { useContext, useRef, useState } from "react";
+import { FacultyContext } from "../../context/FacultyContext";
 
 const SearchModal = () => {
+  const { handleFilterFacultySearch } = useContext(FacultyContext);
+
+  const modalRef: React.LegacyRef<HTMLDivElement> = useRef(null);
+
+  const handleShowModal = () => {
+    modalRef.current?.click();
+  }
+
+  const [name, setName] = useState("");
+  const [isActive, setIsActive] = useState(false);
+
   function search(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
-    throw new Error("Function not implemented.");
+    handleFilterFacultySearch({ Name: name, Status: isActive });
+    handleShowModal()
   }
 
   return (
     <div>
-      <div className="modal" tabIndex={-1} role="dialog" id="searchModal">
+      <div
+        className="modal"
+        ref={modalRef}
+        tabIndex={-1}
+        role="dialog"
+        id="searchModal"
+      >
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
@@ -23,7 +42,7 @@ const SearchModal = () => {
               </button>
             </div>
             <div className="modal-body">
-              <form id="searchForm" onSubmit={(event) => search(event)}>
+              <form id="searchForm" onSubmit={search}>
                 <div className="form-group">
                   <label htmlFor="facultyName">Faculty Name</label>
                   <input
@@ -32,14 +51,23 @@ const SearchModal = () => {
                     name="Name"
                     id="facultyName"
                     placeholder="e.g. Faculty of Art"
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="status">Status</label>
-                  <select className="form-control" name="Status" id="status">
-                    <option value="1">Active</option>
-                    <option value="0">Inactive</option>
-                  </select>
+                  <input
+                    className="form-check-input ml-0"
+                    name="Status"
+                    type="checkbox"
+                    id="status"
+                    value="Active"
+                    checked={isActive}
+                    onChange={() => setIsActive(!isActive)}
+                  />
+                  <label className="ml-4" htmlFor="status">
+                    Status
+                  </label>
                 </div>
                 <button type="submit" className="btn btn-primary float-right">
                   Search
