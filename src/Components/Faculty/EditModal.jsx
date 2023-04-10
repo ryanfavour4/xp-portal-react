@@ -1,23 +1,22 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { FacultyContext } from "../../context/FacultyContext";
-import { IFacultyData } from "../../Interface/Interface";
 
 function EditModal() {
   const { filteredFaculty, handleEditFaculty } = useContext(FacultyContext);
 
-  const modalRef: React.LegacyRef<HTMLDivElement> = useRef(null);
+  const modalRef = useRef(null);
 
   const handleShowModal = () => {
     modalRef.current?.click();
   };
 
-  const [id, setId] = useState<number>(0);
+  const [id, setId] = useState(0);
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
   const [uniqueId, setUniqueId] = useState("");
   const [isActive, setIsActive] = useState(false);
 
-  const editedFacultyObj: IFacultyData = {
+  const editedFacultyObj = {
     id: id,
     Name: name,
     UniqueId: uniqueId,
@@ -25,7 +24,7 @@ function EditModal() {
     Status: isActive,
   };
 
-  function editFaculty(event: any) {
+  function editFaculty(event) {
     event.preventDefault();
     handleEditFaculty(filteredFaculty, editedFacultyObj);
     handleShowModal();
@@ -33,7 +32,7 @@ function EditModal() {
 
   useEffect(() => {
     if (filteredFaculty) {
-      filteredFaculty.forEach((fac: IFacultyData) => {
+      filteredFaculty.forEach((fac) => {
         setId(fac.id);
         setCode(fac.Code);
         setName(fac.Name);

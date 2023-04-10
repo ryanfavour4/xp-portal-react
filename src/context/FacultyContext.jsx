@@ -1,17 +1,11 @@
 // BookContext.tsx
-import React, { ReactNode, createContext, useState } from "react";
-import { IFacultyData } from "../Interface/Interface"
+import React, { createContext, useState } from "react";
 
-type Props = {
-  children: ReactNode;
-};
+export const FacultyContext = createContext([]);
 
+export const FacultyProvider = ({ children }) => {
 
-export const FacultyContext = createContext<any>([]);
-
-export const FacultyProvider = ({ children }: Props) => {
-
-  const [faculty, setFaculty] = useState<IFacultyData[]>([
+  const [faculty, setFaculty] = useState([
     {
       id: 1,
       Name: "Full Sail University",
@@ -224,26 +218,26 @@ export const FacultyProvider = ({ children }: Props) => {
     },
   ]);
 
-  const [filteredFaculty, setFilteredFaculty] = useState<IFacultyData[] | null>(null);
+  const [filteredFaculty, setFilteredFaculty] = useState(null);
 
   const handleResetFaculty = () => {
     setFilteredFaculty(null);
     setFaculty(faculty)
   };
 
-  const handleAddFaculty = (fac: IFacultyData) => {
+  const handleAddFaculty = (fac) => {
     setFaculty([...faculty, fac])
   };
 
-  const handleDeleteFaculty = (fac: IFacultyData) => {
+  const handleDeleteFaculty = (fac) => {
     setFaculty(faculty.filter(f => f.id !== fac.id));
   };
 
-  const handleFilterFaculty = (fac: IFacultyData) => {
+  const handleFilterFaculty = (fac) => {
     setFilteredFaculty(faculty.filter(f => f.id === fac.id))
   };
 
-  const handleFilterFacultySearch = (facData:{Name: string, Status: boolean} ) => {
+  const handleFilterFacultySearch = (facData ) => {
     console.log(facData);
     console.log(filteredFaculty);
 
@@ -252,7 +246,7 @@ export const FacultyProvider = ({ children }: Props) => {
     }));
   };
 
-  const handleEditFaculty = (fac: IFacultyData[], editedFacultyObj:IFacultyData) => {
+  const handleEditFaculty = (fac, editedFacultyObj) => {
     // edit faculty data from faculty array
     setFaculty(faculty.map(f => f.id === editedFacultyObj.id ? editedFacultyObj : f ));
     setFilteredFaculty(null);

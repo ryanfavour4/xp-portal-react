@@ -1,10 +1,6 @@
 import React from "react";
 
-type Props = {
-  pageName:string;
-}
-
-const PageTopTitle = ({pageName}:Props) => {
+const PageTopTitle = ({pageName}) => {
 
   return (
     <div>
