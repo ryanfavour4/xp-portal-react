@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom'
 
 function Sidebar() {
   return (
@@ -57,15 +58,13 @@ function Sidebar() {
         >
           <div className="bg-white py-2 collapse-inner rounded">
             <h6 className="collapse-header">Academic Setups:</h6>
-            <a className="collapse-item" href="../academicSetup/faculty.html">
+            <Link className="collapse-item" to={'/'}>
               Faculties
-            </a>
-            <a
-              className="collapse-item"
-              href="../academicSetup/department.html"
+            </Link>
+            <Link className="collapse-item" to={'/dept'}
             >
               Departments
-            </a>
+            </Link>
             <a
               className="collapse-item"
               href="../academicSetup/courseofstudy.html"
