@@ -1,11 +1,17 @@
 // BookContext.tsx
-import React, { createContext, useState } from "react";
+import React, { ReactNode, createContext, useState } from "react";
+import { IFacultyData } from "../Interface/Interface"
 
-export const FacultyContext = createContext([]);
+type Props = {
+  children: ReactNode;
+};
 
-export const FacultyProvider = ({ children }) => {
 
-  const [faculty, setFaculty] = useState([
+export const FacultyContext = createContext<any>([]);
+
+export const FacultyProvider = ({ children }: Props) => {
+
+  const [faculty, setFaculty] = useState<IFacultyData[]>([
     {
       id: 1,
       Name: "Full Sail University",
@@ -218,26 +224,26 @@ export const FacultyProvider = ({ children }) => {
     },
   ]);
 
-  const [filteredFaculty, setFilteredFaculty] = useState(null);
+  const [filteredFaculty, setFilteredFaculty] = useState<IFacultyData[] | null>(null);
 
   const handleResetFaculty = () => {
     setFilteredFaculty(null);
     setFaculty(faculty)
   };
 
-  const handleAddFaculty = (fac) => {
+  const handleAddFaculty = (fac: IFacultyData) => {
     setFaculty([...faculty, fac])
   };
 
-  const handleDeleteFaculty = (fac) => {
+  const handleDeleteFaculty = (fac: IFacultyData) => {
     setFaculty(faculty.filter(f => f.id !== fac.id));
   };
 
-  const handleFilterFaculty = (fac) => {
+  const handleFilterFaculty = (fac: IFacultyData) => {
     setFilteredFaculty(faculty.filter(f => f.id === fac.id))
   };
 
-  const handleFilterFacultySearch = (facData ) => {
+  const handleFilterFacultySearch = (facData:{Name: string, Status: boolean} ) => {
     console.log(facData);
     console.log(filteredFaculty);
 
@@ -246,7 +252,7 @@ export const FacultyProvider = ({ children }) => {
     }));
   };
 
-  const handleEditFaculty = (fac, editedFacultyObj) => {
+  const handleEditFaculty = (fac: IFacultyData[], editedFacultyObj:IFacultyData) => {
     // edit faculty data from faculty array
     setFaculty(faculty.map(f => f.id === editedFacultyObj.id ? editedFacultyObj : f ));
     setFilteredFaculty(null);

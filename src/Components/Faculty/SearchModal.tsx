@@ -4,7 +4,7 @@ import { FacultyContext } from "../../context/FacultyContext";
 const SearchModal = () => {
   const { handleFilterFacultySearch } = useContext(FacultyContext);
 
-  const modalRef = useRef(null);
+  const modalRef: React.LegacyRef<HTMLDivElement> = useRef(null);
 
   const handleShowModal = () => {
     modalRef.current?.click();
@@ -13,7 +13,7 @@ const SearchModal = () => {
   const [name, setName] = useState("");
   const [isActive, setIsActive] = useState(false);
 
-  function search(event) {
+  function search(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
     handleFilterFacultySearch({ Name: name, Status: isActive });
     handleShowModal()
