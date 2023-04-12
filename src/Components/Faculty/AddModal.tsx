@@ -6,7 +6,7 @@ const Modal = () => {
   const [uniqueId, setUniqueId] = useState("");
   const [isActive, setIsActive] = useState(false);
 
-  function addFaculty(event) {
+  function addFaculty(event: any) {
     event.preventDefault();
     // your addFaculty function logic here
   }

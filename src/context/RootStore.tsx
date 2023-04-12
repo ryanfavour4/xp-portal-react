@@ -1,9 +1,13 @@
 // Create the RootStore
-import React from "react";
+import React, { ReactNode } from "react";
 import { BookProvider } from "./BookContext";
 import { FacultyProvider } from "./FacultyContext";
 
-export const RootStore = ({ children }) => {
+type Props = {
+  children: ReactNode;
+};
+
+export const RootStore = ({ children }: Props) => {
 
   return (
     <FacultyProvider>

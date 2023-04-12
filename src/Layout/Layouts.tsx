@@ -1,10 +1,13 @@
-import React from "react";
+import { ReactNode } from "react";
 import Footer from "./Footer";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 
+type Props = {
+  children: ReactNode;
+};
 
-const Layouts = ({ children }) => {
+const Layouts = ({ children }: Props) => {
   return (
     <div id="page-top">
       {/* Page Wrapper */}

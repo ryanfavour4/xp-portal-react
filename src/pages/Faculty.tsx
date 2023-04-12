@@ -4,6 +4,7 @@ import EditModal from "../Components/Faculty/EditModal";
 import PageTopTitle from "../Components/PageTopTitle";
 import SearchModal from "../Components/Faculty/SearchModal";
 import { FacultyContext } from "../context/FacultyContext";
+import { IFacultyData } from "../Interface/Interface";
 import Layouts from "../Layout/Layouts";
 
 function Faculty() {
@@ -12,11 +13,11 @@ function Faculty() {
 
   const [facultiesToMap, setFacultiesToMap] = useState(faculty);
 
-  const deleteFaculty = (facultyObj) => {
+  const deleteFaculty = (facultyObj: IFacultyData) => {
     handleDeleteFaculty(facultyObj);
   };
 
-  const editFacultyBtn = (facultyObj) => {
+  const editFacultyBtn = (facultyObj: IFacultyData) => {
     handleFilterFaculty(facultyObj);
   };
 
@@ -58,7 +59,7 @@ function Faculty() {
               </thead>
               <tbody id="table-body">
                 {facultiesToMap &&
-                  facultiesToMap.map((faculty, index) => {
+                  facultiesToMap.map((faculty: IFacultyData, index: number) => {
                     return (
                       <tr key={index}>
                         <td>{index + 1}</td>
